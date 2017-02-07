@@ -9,7 +9,8 @@ setup(
     author="Illarion Khlestov",
     author_email="khlyestovillarion@gmail.com",
     install_requires=[
-       'numpy',
-       'matplotlib',
+        'numpy',
+        'matplotlib',
+        'tqdm',
     ]
 )

@@ -5,7 +5,7 @@ import scipy.io
 import numpy as np
 
 from .base_provider import ImagesDataSet, DataProvider
-from ..utils.downloader import download_data_url
+from .downloader import download_data_url
 
 
 class SVHNDataSet(ImagesDataSet):
