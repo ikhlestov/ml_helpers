@@ -2,7 +2,7 @@ import numpy as np
 
 
 class DataSet:
-    """Class to represent some dataset: train, validation, test"""
+    """Class to represent some dataset: train, validation, test, etc."""
     @property
     def num_examples(self):
         """Return qtty of examples in dataset"""
@@ -11,6 +11,19 @@ class DataSet:
     def next_batch(self, batch_size):
         """Return batch of required size of data, labels"""
         raise NotImplementedError
+
+    def _shuffle_N_arrays(self, arrays):
+        """Shuffle N numpy arrays with same indexes
+        Args:
+            arrays: list of numpy arrays
+        Return:
+            shuffled_arrays: list of numpy arrays
+        """
+        rand_indexes = np.random.permutation(arrays[0].shape[0])
+        shuffled_arrays = []
+        for array in arrays:
+            shuffled_arrays.append(array[rand_indexes])
+        return shuffled_arrays
 
 
 class ImagesDataSet(DataSet):

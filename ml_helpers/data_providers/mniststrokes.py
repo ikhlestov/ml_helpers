@@ -17,27 +17,14 @@ class MNISTStrokesDataSet(DataSet):
         self.labels = np.array(labels)
         self.shuffle = shuffle
 
-        self.start_new_epoch()
+        self._start_new_epoch()
 
-    def start_new_epoch(self):
+    def _start_new_epoch(self):
         self._batch_counter = 0
         if self.shuffle:
             arrays = self.points, self.inputs, self.targets, self.labels
-            output = self.shuffle_N_arrays(arrays)
+            output = self._shuffle_N_arrays(arrays)
             self.points, self.inputs, self.targets, self.labels = output
-
-    def shuffle_N_arrays(self, arrays):
-        """Shuffle N numpy arrays with same indexes
-        Args:
-            arrays: list of numpy arrays
-        Return:
-            shuffled_arrays: list of numpy arrays
-        """
-        rand_indexes = np.random.permutation(arrays[0].shape[0])
-        shuffled_arrays = []
-        for array in arrays:
-            shuffled_arrays.append(array[rand_indexes])
-        return shuffled_arrays
 
     @property
     def num_examples(self):
@@ -59,7 +46,7 @@ class MNISTStrokesDataSet(DataSet):
         targets_slice = self.targets[start: end]
         labels_slice = self.labels[start: end]
         if points_slice.shape[0] != batch_size:
-            self.start_new_epoch()
+            self._start_new_epoch()
             return self.next_batch(batch_size)
         else:
             return points_slice, inputs_slice, targets_slice, labels_slice
@@ -84,7 +71,7 @@ class MNISTStrokesDataProvider(DataProvider):
             verbose: `bool`, should report some pregress
         """
         self._save_path = None
-        download_data_url(self.data_url, self.save_path)
+        download_data_url(self.data_url, self.save_path, verbose=verbose)
         sub_save_path = os.path.join(self.save_path, 'sequences')
         for dataset in ['test', 'train']:
             labels_file = os.path.join(sub_save_path, '%slabels.txt' % dataset)
@@ -164,7 +151,7 @@ class MNISTStrokesDataProvider(DataProvider):
     def save_path(self):
         if self._save_path is None:
             self._save_path = os.path.join(
-                tempfile.gettempdir(), 'mnist_stokes')
+                tempfile.gettempdir(), 'mnist_strokes')
         return self._save_path
 
     @property
@@ -173,4 +160,4 @@ class MNISTStrokesDataProvider(DataProvider):
 
 
 if __name__ == '__main__':
-    provider = MNISTStrokesDataProvider(validation_split=0.1)
+    provider = MNISTStrokesDataProvider(validation_split=0.1, verbose=False)
