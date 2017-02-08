@@ -177,6 +177,13 @@ class MNISTStrokesDataProvider(DataProvider):
         try:
             with open(pickle_filename, 'rb') as f:
                 data = pickle.load(f)
+                labels = data[3]
+                if self._one_hot and len(labels.shape) == 1:
+                    labels = self.labels_to_one_hot(labels)
+                    data = (data[0], data[1], data[2], labels)
+                if not self._one_hot and len(labels.shape) == 2:
+                    labels = self.labels_from_one_hot(labels)
+                    data = (data[0], data[1], data[2], labels)
                 success = True
         except Exception as e:
             if self._verbose:
