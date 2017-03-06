@@ -1,8 +1,16 @@
+from __future__ import print_function, division
 import sys
 import os
-import urllib.request
 import tarfile
 import zipfile
+
+from six.moves.urllib import request
+
+
+def makedirs(f_name):
+    """same as os.makedirs(f_name, exists_ok=True) at python3"""
+    if not os.path.exists(f_name):
+        os.makedirs(f_name)
 
 
 def report_download_progress(count, block_size, total_size):
@@ -17,14 +25,14 @@ def download_data_url(url, download_dir, verbose=True):
     file_path = os.path.join(download_dir, filename)
 
     if not os.path.exists(file_path):
-        os.makedirs(download_dir, exist_ok=True)
+        makedirs(download_dir)
 
         if verbose:
             print("Download %s to %s" % (url, file_path))
             reporthook = report_download_progress
         else:
             reporthook = None
-        file_path, _ = urllib.request.urlretrieve(
+        file_path, _ = request.urlretrieve(
             url=url,
             filename=file_path,
             reporthook=reporthook)

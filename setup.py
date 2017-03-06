@@ -13,5 +13,6 @@ setup(
         'matplotlib',
         'tqdm',
         'scipy',
+        'six',
     ]
 )

@@ -1,3 +1,5 @@
+from __future__ import print_function, division
+
 import os
 import tempfile
 import pickle
@@ -6,7 +8,7 @@ import numpy as np
 from tqdm import tqdm
 
 
-from .downloader import download_data_url
+from .downloader import download_data_url, makedirs
 from .base_provider import DataSet, DataProvider
 
 
@@ -168,7 +170,7 @@ class MNISTStrokesDataProvider(DataProvider):
     def _get_pickle_filename(self, dataset):
         cache_dir = os.path.join(
             tempfile.gettempdir(), 'mnist_strokes', 'cache')
-        os.makedirs(cache_dir, exist_ok=True)
+        makedirs(cache_dir)
         pickle_filename = os.path.join(cache_dir, '%s_data.pkl' % dataset)
         return pickle_filename
 
