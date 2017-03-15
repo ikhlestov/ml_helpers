@@ -4,7 +4,7 @@ Repo under development, so docs/examples should be provided in the future.
 
 Now exist:
 
-- data providers for various machine learning datasets: Cifar10/100 with and without augmentation, SHVN, MNIST strokes
+- data providers for various machine learning datasets: Cifar10/100 with and without augmentation, SHVN
 - plotters to easy plot some 2D or 3D data
 
 To install run ``pip install .`` from the root directory.
