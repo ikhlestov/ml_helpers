@@ -7,7 +7,6 @@ setup(
     license='MIT',
     long_description=open('README.rst').read(),
     author="Illarion Khlestov",
-    author_email="khlyestovillarion@gmail.com",
     install_requires=[
         'numpy',
         'matplotlib',
